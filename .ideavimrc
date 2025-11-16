@@ -1,1 +1,105 @@
-C:/Users/4mail/.ideavimrc
+" ======================================================================================================================
+"
+"                                           (_)   | |                (_)
+"  _____________________________________     _  __| | ___  __ ___   ___ _ __ ___   __________________________________
+" |____________________________________|   | |/ _` |/ _ \/ _` \ \ / / | '_ ` _ \  |_________________________________|
+"                                        _ | | (_| |  __/ (_| |\ V /| | | | | | |
+"                                       (_)|_|\__,_|\___|\__,_| \_/ |_|_| |_| |_|
+"
+" You can find a list of commands for .ideavimrc here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+"" ================================================ IMPORTANT NOTES ====================================================
+"" ------------------------------------------------ WHAT TO INSTALL ----------------------------------------------------
+" - JetBrains' IdeaVim plugin
+" - Joshua Stein's IdeaVim-Quickscope plugin (See QUICKSCOPE section for why)
+" - Fira Code Nerd Font (Go to https://www.nerdfonts.com/font-downloads, search "FiraCode Nerd Font" and download)
+" 
+"" -------------------------------------------------- NAVIGATION -------------------------------------------------------
+" - Bind BOTH `K` and `Alt + K` to `Up`
+" - Bind BOTH `J` and `Alt + J` to `Down`
+" - Bind 
+" - Makes navigation much nicer :)
+"   - Why both? You'll wanna use `J` or `K` to navigate by default, but some menus let you search the options in them.
+"     When that happens, you still want the option to navigate the menu, so `Alt + J/K` is your Plan B.
+"
+"" ------------------------------------------------ EDITOR ACTIONS -----------------------------------------------------
+"  When mapping <Action> commands, use `map`, not `nnoremap` or something else.
+"  - You get weird behaviour when you don't use `map` for these mappings
+"  - It's fine for other commands, it seems, but the <Action> commands seem a little janky.
+"
+" Don't put comments in-line on <Action> commands.
+" - It sometimes inserts part of the comment after executing the action 
+
+"" =================================================== LEADER ==========================================================
+nnoremap <SPACE> <Nop>                                            " To avoid conflicting with leader key
+nnoremap <ENTER> <Nop>                                            " Use <ENTER> for commands like `=` or `<` to confirm.
+let mapleader = " "                                               " Make <SPACE> the leader
+
+"" ================================================ EDITOR SETTINGS ====================================================
+set scrolloff=5                         " Show `scrolloff` lines of context around the cursor.
+set incsearch                           " Set incremental search
+set ideajoin                            " Use ideavim's smarter join-line behaviour instead of Vim's dumb default.
+set hlsearch                            " Highlights all occurrences of searched item in file
+set matchpairs=(:),{:},<:>,":",':',`:`  " Chooses which bracket pairs the `%` command jumps between
+set matchit                             " Better support for jumping between HTML/XML tags
+set smartcase                           " Better case sensitivity in search
+set visualbell                          " Doesn't ding bell when `h`- or `k`-ing at the ends of a file.
+set wrapscan                            " Search wraps around end of file.
+set list                                " Show whitespace. (Change whitespace colour to grey-ish; it's less distracting)
+
+"" -------------------------------------------------- CLIPBOARD --------------------------------------------------------
+set clipboard+=unnamed                                  " Copies `y`, `d`, and similar commands' stuff to OS's clipboard
+set clipboard+=ideaput                                  " Telling IdeaVim to paste stuff in its usual way
+
+" ==================================================== PLUGINS =========================================================
+Plug 'machakann/vim-highlightedyank'                                    " Highlight on yank
+Plug 'tpope/vim-commentary'                                             " Shortcuts for commenting code
+Plug 'tpope/vim-surround'                                               " For quickly swapping bracket pairs and similar
+
+" -------------------------------------------------- QUICKSCOPE --------------------------------------------------------
+set quickscope                                              " QuickScope plugin for nicer use of `f` and `t`
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']           " Only highlights on the given keys
+let g:qs_primary_color = '#c29cfb'                          " Sets the colour of the first occurrence of the character.
+let g:qs_secondary_color = '#9a7cc7'                        " Sets the colour of following occurrences of the character.
+let g:qs_disable_for_diffs = 1                              " Doesn't highlight in diffs.
+
+" =================================================== MAPPINGS =========================================================
+" ---------------------------------------------------- RUNNING ---------------------------------------------------------
+map <leader>r <Action>(Run)
+" --------------------------------------------------- DEBUGGING --------------------------------------------------------
+map <leader>d <Action>(Debug)
+map <C-B> <Action>(ToggleLineBreakpoint)
+" Edit Breakpoint (need to have breakpoint currently toggled on the line)
+map <C-S-B> <Action>(EditBreakpoint)
+
+"" --------------------------------------------------- MENUS -----------------------------------------------------------
+map <leader>c <Action>(CodeCleanup)
+map <leader>r <Action>(RenameElement)
+" Generate class constructor, generate field, etc.
+map <leader>g <Action>(Generate)
+map <leader>u <Action>(ShowUsages)
+" Open usages panel
+map <leader>U <Action>(FindUsages)
+" Show info on hover
+map gh <Action>(ShowHoverInfo)
+map <leader>s <Action>(ActivateStructureToolWindow)
+map <leader>S <Action>(ShowSettings)
+map <leader>p <Action>(WelcomeScreen.Plugins)
+
+"" ------------------------------------------------ NAVIGATION ---------------------------------------------------------
+map <C-L> <Action>(NextSplitter)
+map <C-H> <Action>(PrevSplitter)
+
+"" --------------------------------------------------- TABS ------------------------------------------------------------
+" Open .ideavimrc (this file)
+nnoremap <leader>V :edit C:\Users\4mail\.ideavimrc<CR>
+" Open the tab to the left of the one currently open
+nnoremap <leader>h :tabprev<CR>
+" Open the tab to the right of the one currently open
+nnoremap <leader>l :tabnext<CR>
+" Open the last-opened tab
+nnoremap <leader>b :b#<CR>
+
+" Search Everywhere
+map <leader>f <Action>(SearchEverywhere)
+
